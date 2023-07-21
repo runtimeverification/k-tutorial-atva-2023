@@ -25,10 +25,10 @@ This will take care of all the dependencies and specific versions used by K. Not
 
 ## Contents
 
-### AM Session - Introduction to K slides
-### [K Hands-on working directory](K_hands_on/)
-### PM Session - KEVM: Formal Semantics of Ethereum VM slides
-### KEVM Hands-on working directory
+### AM Session - Introduction to K (slides)
+### [K Hands-on](K_hands_on/)
+### PM Session - KEVM: Formal Semantics of Ethereum VM (slides)
+### KEVM Hands-on
 
 ## Other K materials
 
