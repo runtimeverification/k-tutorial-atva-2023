@@ -6,7 +6,7 @@ we will build a simple calculator program language and formal verify some proper
 
 For this part of the tutorial, we will be using `K_Hands_on/` as our working directory:
 ```shell
-cd K_Hands_on/
+cd K_hands_on/
 ```
 
 ## Installation of K
@@ -38,16 +38,16 @@ kup list
 This will take care of all the dependencies and specific versions used by K. Note that the first run will take longer (30m to 1h) to fetch all the libraries and compile sources. If you are on Apple Silicon, `kup` is currently the only way to install K because of upstream issues in the general Haskell ecosystem.
 
 The tutorial will be done using VS Code but please feel to use any editor you prefer. 
-For VS Code users, you can install the "K Framework" extension to help you with editing the code.
+For VS Code users, you can install the ["K Framework" extension](https://marketplace.visualstudio.com/items?itemName=RuntimeVerification.k-vscode) to help you with editing the code.
 
 **Note:** Each of the following contents are written in the respective directory's README.md with the working directory set as
-`K_Hands_on/`.
+`K_hands_on/`.
 
 ## Contents
 
-### P1. Calculator
-### P2. Calculator with Boolean Expressions
-### P3. Variables in Expressions, Explicit Substitution
-### P4. Assignment Operator
-### P5. Control Flow
-### P6. Procedures (Optional)
+### [P1. Calculator](P1_Calculator/)
+### [P2. Calculator with Boolean Expressions](P2_Calculator_with_Boolean_Expressions/)
+### [P3. Variables in Expressions, Explicit Substitution](P3_Variables_in_Expressions_Explicit_Substitution/)
+### [P4. Assignment Operator](P4_Assignment_Operator/)
+### [P5. Control Flow](P5_Control_Flow/)
+### [P6. Procedures (Optional)](P6_Procedures/)
