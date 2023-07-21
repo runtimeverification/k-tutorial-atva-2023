@@ -1,4 +1,5 @@
-# Introduction to K and its applications
+# The K Framework: A tool kit for language semantics and verification
+
 
 This is the main repository we will be using for the tutorial sessions during the [21st International Symposium on Automated Technology for Verification and Analysis (ATVA 2023)](https://atva-conference.org/2023/). The tutorial sessions will be held on _date_ from _start_time_ to _end_time_. 
 
@@ -6,7 +7,7 @@ This is the main repository we will be using for the tutorial sessions during th
 
 1. Clone this repository for the tutorial materials:
     ```shell
-    git clone <repo-link>
+    git clone https://github.com/runtimeverification/k-tutorial-atva-2023.git
     ```
 
 2. To join our hands-on sessions, **please install K prior to attending the them** as it may take some time ranging from 15 minutes to an hour to get it fully installed. Furthermore, we only support installing of K on Linux and macOS. For Windows users, please create a virtual machine with a Linux distribution (e.g. Ubuntu Focal Fossa) installed on it. Otherwise, you can install the Windows Subsystem for Linux (version 2) and follow the instructions for installing Ubuntu Focal. For more information on the kup tool and other packaged releases of K, please refer to our [installation notes](https://github.com/runtimeverification/k/blob/master/k-distribution/INSTALL.md).
@@ -25,8 +26,8 @@ This will take care of all the dependencies and specific versions used by K. Not
 ## Contents
 
 ### AM Session - Introduction to K slides
-### K Hands-on working directory
-### PM Session - KEVM: Formal Semantics of Ethereum VM
+### [K Hands-on working directory](https://github.com/runtimeverification/k-tutorial-atva-2023/tree/master/K_hands_on)
+### PM Session - KEVM: Formal Semantics of Ethereum VM slides
 ### KEVM Hands-on working directory
 
 ## Other K materials
