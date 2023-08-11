@@ -1,7 +1,7 @@
 # The K Framework: A tool kit for language semantics and verification
 
 
-This is the main repository we will be using for the tutorial sessions during the [21st International Symposium on Automated Technology for Verification and Analysis (ATVA 2023)](https://atva-conference.org/2023/). The tutorial sessions will be held on _date_ from _start_time_ to _end_time_. 
+This is the main repository we will be using for the tutorial sessions during the [21st International Symposium on Automated Technology for Verification and Analysis (ATVA 2023)](https://atva-conference.org/2023/). The tutorial sessions will be held on 24 October 2023 from _start_time_ to _end_time_. 
 
 ## Announcements
 
@@ -22,6 +22,18 @@ kup install k
 ```
 
 This will take care of all the dependencies and specific versions used by K. Note that the first run will take longer (30m to 1h) to fetch all the libraries and compile sources.
+
+## Abstract
+
+The [K Framework](https://kframework.org/) provides a set of tools for developing programming languages and formal analysis tools. By writing a single description of your language’s syntax and operational semantics, you can use K to automatically extract a parser, interpreter, symbolic execution engine, and many more tools for your language. This approach scales well: K implementations have been built for many mainstream programming languages (C, Rust, Java, Python, EVM, to name a few), and K is used in practice every day for real verification problems.
+
+This tutorial is aimed at anyone who is interested in programming language implementation or program verification, and will be broken down into two main sessions (AM and PM session):
+
+### AM session
+We will build a simple imperative language in K, where we will define syntax and operational semantics of the language we are building. With the language definition in hand, we will take advantage of K’s support for deductive verification to write some simple proofs over programs. By the end of this session, the attendees should be able to implement and verify their next research DSL or language of interest using K.
+
+### PM session
+We will verify the properties of Ethereum smart contracts using KEVM, a complete formal semantics of Ethereum Virtual Machine (EVM). To provide the attendees with the necessary background knowledge, we will go through the basics of blockchain, EVM, Solidity—the most popular smart contract language, and Foundry—a reliable and easy-to-setup tool that is widely used by smart contract developers and auditors, before moving onto KEVM. By the end of this session, the attendees will be able to prove properties of Ethereum smart contracts by defining them through test functions in Foundry and verifying them using KEVM.
 
 ## Contents
 
