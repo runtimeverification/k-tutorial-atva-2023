@@ -1,7 +1,11 @@
 # The K Framework: A tool kit for language semantics and verification
 
 
-This is the main repository we will be using for the tutorial sessions during the [21st International Symposium on Automated Technology for Verification and Analysis (ATVA 2023)](https://atva-conference.org/2023/). The tutorial sessions will be held on 24 October 2023 from _start_time_ to _end_time_. 
+This is the main repository we will be using for the tutorial sessions during the [21st International Symposium on Automated Technology for Verification and Analysis (ATVA 2023)](https://atva-conference.org/2023/).
+
+**Date:** 24 October 2023    
+**Time:** AM session - _start_time_ to _end_time_, PM session - _start_time_ to _end_time_    
+**Venue:** _venue_
 
 ## Announcements
 
