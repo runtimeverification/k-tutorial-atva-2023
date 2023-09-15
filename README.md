@@ -41,7 +41,7 @@ We will verify the properties of Ethereum smart contracts using KEVM, a complete
 
 ## Contents
 
-### AM Session - Introduction to K (slides)
+### AM Session - [Introduction to K](Introduction_to_K/) (slides)
 ### [K Hands-on](K_hands_on/)
 ### PM Session - KEVM: Formal Semantics of Ethereum VM (slides)
 ### KEVM Hands-on
