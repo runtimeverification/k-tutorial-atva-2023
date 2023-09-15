@@ -50,4 +50,4 @@ For VS Code users, you can install the ["K Framework" extension](https://marketp
 ### [P3. Variables in Expressions, Explicit Substitution](P3_Variables_in_Expressions_Explicit_Substitution/)
 ### [P4. Assignment Operator](P4_Assignment_Operator/)
 ### [P5. Control Flow](P5_Control_Flow/)
-### [P6. Procedures (Optional)](P6_Procedures/)
+### [P6. Procedures](P6_Procedures/)

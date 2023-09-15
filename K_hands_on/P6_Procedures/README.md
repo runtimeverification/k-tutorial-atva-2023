@@ -1,4 +1,4 @@
-## 6. Procedures (Optional)
+## 6. Procedures
 
 In this exercise, we take the previous exercise and extend the language with procedures 
 and procedure calls.
