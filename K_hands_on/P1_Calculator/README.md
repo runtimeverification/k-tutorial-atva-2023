@@ -63,7 +63,7 @@ define the appropriate syntax and semantics.
 
     b. Create a new test file with the program you want to test with in the file and run it with `krun` (we have provided you a sample test file `tests/calc-test1`):
     ```shell
-    krun tests/calc-test1
+    krun tests/1.calc-test1
     ```
 
     Using either way, you should see that the program has evaluated to 6:
@@ -117,7 +117,11 @@ Modify the `calc.k` such that the following code is in the file:
     - `left:` To indicate left associativity
 
 
- 6. Test this newly modified code with `tests/calc-test2` that we have provided and check if all values are evaluated correctly:
+ 6. Remove the compiled `calc-kompiled` directory (remember to do this before compiling new module) 
+and recompile our modified `calc.k` before testing it with `tests/calc-test2` that we have provided 
+and check if all values are evaluated correctly:
     ```shell
-    krun tests/calc-test2
+    rm -rf calc-kompiled/
+    kompile src/calc.k
+    krun tests/1.calc-test2
     ```
