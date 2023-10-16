@@ -4,8 +4,8 @@
 This is the main repository we will be using for the tutorial sessions during the [21st International Symposium on Automated Technology for Verification and Analysis (ATVA 2023)](https://atva-conference.org/2023/).
 
 **Date:** 24 October 2023    
-**Time:** AM session - _start_time_ to _end_time_, PM session - _start_time_ to _end_time_    
-**Venue:** _venue_
+**Time:** AM session - 0900 to 1200, PM session - 1400 to 1700    
+**Venue:** [SMU School of Economics and School of Computing and Information Systems 2](https://maps.app.goo.gl/pRj5fFG81CW4shj9A)
 
 ## Announcements
 
