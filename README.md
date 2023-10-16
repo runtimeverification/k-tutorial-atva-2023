@@ -14,7 +14,7 @@ This is the main repository we will be using for the tutorial sessions during th
     git clone https://github.com/runtimeverification/k-tutorial-atva-2023.git
     ```
 
-2. To join our hands-on sessions, **please install K prior to attending the them** as it may take some time ranging from 15 minutes to an hour to get it fully installed. Furthermore, we only support installing of K on Linux and macOS. For Windows users, please create a virtual machine with a Linux distribution (e.g. Ubuntu Focal Fossa) installed on it. Otherwise, you can install the Windows Subsystem for Linux (version 2) and follow the instructions for installing Ubuntu Focal. For more information on the kup tool and other packaged releases of K, please refer to our [installation notes](https://github.com/runtimeverification/k/blob/master/k-distribution/INSTALL.md).
+2. To join our hands-on sessions, **please install K and Kontrol prior to attending them** as it may take some time ranging from 15 minutes to an hour to get it fully installed. Furthermore, we only support installing of K on Linux and macOS. For Windows users, please create a virtual machine with a Linux distribution (e.g. Ubuntu Focal Fossa) installed on it. Otherwise, you can install the Windows Subsystem for Linux (version 2) and follow the instructions for installing Ubuntu Focal. For more information on the kup tool and other packaged releases of K, please refer to our [installation notes](https://github.com/runtimeverification/k/blob/master/k-distribution/INSTALL.md).
 
 ### Installation of K
 
@@ -27,6 +27,14 @@ kup install k
 
 This will take care of all the dependencies and specific versions used by K. Note that the first run will take longer (30m to 1h) to fetch all the libraries and compile sources.
 
+### Installation of Kontrol
+
+Similarly, you can install Kontrol—a K-based tool that supports verification of Ethereum smart contracts.
+
+```shell
+kup install kontrol
+```
+
 ## Abstract
 
 The [K Framework](https://kframework.org/) provides a set of tools for developing programming languages and formal analysis tools. By writing a single description of your language’s syntax and operational semantics, you can use K to automatically extract a parser, interpreter, symbolic execution engine, and many more tools for your language. This approach scales well: K implementations have been built for many mainstream programming languages (C, Rust, Java, Python, EVM, to name a few), and K is used in practice every day for real verification problems.
@@ -37,14 +45,14 @@ This tutorial is aimed at anyone who is interested in programming language imple
 We will build a simple imperative language in K, where we will define syntax and operational semantics of the language we are building. With the language definition in hand, we will take advantage of K’s support for deductive verification to write some simple proofs over programs. By the end of this session, the attendees should be able to implement and verify their next research DSL or language of interest using K.
 
 ### PM session
-We will verify the properties of Ethereum smart contracts using KEVM, a complete formal semantics of Ethereum Virtual Machine (EVM). To provide the attendees with the necessary background knowledge, we will go through the basics of blockchain, EVM, Solidity—the most popular smart contract language, and Foundry—a reliable and easy-to-setup tool that is widely used by smart contract developers and auditors, before moving onto KEVM. By the end of this session, the attendees will be able to prove properties of Ethereum smart contracts by defining them through test functions in Foundry and verifying them using KEVM.
+We will verify the properties of Ethereum smart contracts using Kontrol, which is a smart contract verification tool that is based on KEVM—a complete formal semantics of Ethereum Virtual Machine (EVM). To provide the attendees with the necessary background knowledge, we will go through the basics of blockchain, EVM, Solidity—the most popular smart contract language, and Foundry—a reliable and easy-to-setup tool that is widely used by smart contract developers and auditors, before moving onto KEVM and Kontrol. By the end of this session, the attendees will be able to prove properties of Ethereum smart contracts by defining them through test functions in Foundry and verifying them using Kontrol.
 
 ## Contents
 
 ### AM Session - [Introduction to K](Introduction_to_K/) (slides)
 ### [K Hands-on](K_hands_on/)
-### PM Session - KEVM: Formal Semantics of Ethereum VM (slides)
-### KEVM Hands-on
+### PM Session - KEVM and Kontrol: Formal Semantics and Verification of Ethereum Smart Contracts (slides to be shared later)
+### Kontrol Hands-on
 
 ## Other K materials
 
