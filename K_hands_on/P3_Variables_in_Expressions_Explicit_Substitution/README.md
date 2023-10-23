@@ -43,8 +43,8 @@ where `IExp ::= Int | Id` (`Id` is the K built-in sort for identifiers/variables
     - Replace appropriate occurrences of `Int` to `IExp`
     - Add `syntax BExp ::= Bool`
     - Replace appropriate occurrences of `Bool` to `BExp`
-    - Compile this new `subst.k` and test it with the tests for `calc-bool.k`. 
-    You should be able to run all of them smoothly.
+  
+   Compile this new `subst.k` and test it with the tests for `calc-bool.k`. You should be able to run all of them smoothly.
 
 
 3. Rename the `CALC-BOOL` module name to `SUBST`, import `MAP` module and define a new `<mem> ... </mem>` cell under `configuration` 
@@ -119,11 +119,11 @@ replace the section "Integer arithmetic semantics" from `calc-bool.k` with the f
     - `rule substI(I:Id, SUBST) => {SUBST [ I ]}:>Int`: Retrieve mapping value when `substI` is applied to `I:Id`
     - `rule substI(I1 + I2, SUBST) => substI(I1, SUBST) +Int substI(I2, SUBST)`, etc:
         How `substI` is to be evaluated for integer arithmetic syntax.
-    - Compile this modified `subst.k` and test it with the `tests/3.subst-test3`. 
-    You should be able to run all of them smoothly.
+
+   Compile this modified `subst.k` and test it with the `tests/3.subst-test3`. You should be able to run all of them smoothly.
 
 
-5. However, if you try to test the current state of `subst.k`, you will run into error when testing with `tests/3.subst-test3` 
+5. However, if you try to test the current state of `subst.k`, you will run into error when testing with `tests/3.subst-test1` 
 as K does not know how to do with `>=`. Next, repeat the procedure you did for `substI` for `substB` 
 (you can refer to `P3_Variables_in_Expressions_Explicit_Substitution/subst.k` for the completed version of this file):
     ```k
