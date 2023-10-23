@@ -4,6 +4,11 @@ This directory contains instructions and smart contracts for the Kontrol tutoria
 
 The contracts for the exercises are available in `kontrol-tutorial`:
 ```shell
+git submodule update --init --recursive
+cd kontrol-tutorial
+```
+or 
+```shell
 git checkout https://github.com/runtimeverification/kontrol-tutorial
 cd kontrol-tutorial
 ```
