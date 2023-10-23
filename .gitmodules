@@ -1,0 +1,3 @@
+[submodule "Kontrol_hands_on/kontrol-tutorial"]
+	path = Kontrol_hands_on/kontrol-tutorial
+	url = https://github.com/runtimeverification/kontrol-tutorial
