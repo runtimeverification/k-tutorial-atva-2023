@@ -2,9 +2,10 @@
 
 This directory contains instructions and smart contracts for the Kontrol tutorial.
 
-For this part of the tutorial, we will be using `K_Hands_on/` as our working directory:
+The contracts for the exercises are available in `kontrol-tutorial`:
 ```shell
-cd Kontrol_hands_on/
+git checkout https://github.com/runtimeverification/kontrol-tutorial
+cd kontrol-tutorial
 ```
 
 ## Installation of Kontrol
