@@ -51,8 +51,8 @@ We will verify the properties of Ethereum smart contracts using Kontrol, which i
 
 ### AM Session - [Introduction to K](Introduction_to_K/) (slides)
 ### [K Hands-on](K_hands_on/)
-### PM Session - KEVM and Kontrol: Formal Semantics and Verification of Ethereum Smart Contracts (slides to be shared later)
-### Kontrol Hands-on
+### PM Session - [KEVM and Kontrol: Formal Semantics and Verification of Ethereum Smart Contracts](Introduction_to_Kontrol/) (slides)
+### [Kontrol Hands-on](Kontrol_hands_on/)
 
 ## Other K materials
 
