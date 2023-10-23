@@ -200,3 +200,96 @@ Here, `kevm.symbolicStorage(address(counter));` indicates that the storage varia
 
 Re-run `kontrol build --rekompile && kontrol prove --reinit --use-booster --test CounterTest.testFuzz_SetNumber` to check.
 
+### K4. Verifying `Solady`
+
+Let's look at a function that belongs to [Solady](https://github.com/Vectorized/solady/tree/main) — a highly-optimized math library written in Solidity and inline-assembly. The `mulWad` function performes fixed-point multiplication, which is commonly used in Solidity contracts:
+```solidity
+library Solady {
+    /// @dev The scalar of ETH and most ERC20s.
+    uint256 internal constant WAD = 1e18;
+
+    /// @dev Equivalent to `(x * y) / WAD` rounded down.
+    function mulWad(uint256 x, uint256 y) internal pure returns (uint256 z) {
+        /// @solidity memory-safe-assembly
+        assembly {
+            // Equivalent to `require(y == 0 || x <= type(uint256).max / y)`.
+            if mul(y, gt(x, div(not(0), y))) {
+                mstore(0x00, 0xbac65e5b) // `MulWadFailed()`.
+                revert(0x1c, 0x04)
+            }
+            z := div(mul(x, y), WAD)
+        }
+    }
+}
+```
+
+With Kontrol, we can verify the equivalence between the hard-to-read assembly and Solidity code, using the following test:
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import "forge-std/Test.sol";
+import "../src/Solady.sol";
+
+contract SoladyTest is Test {
+    /// @dev The scalar of ETH and most ERC20s.
+    uint256 internal constant WAD = 1e18;
+
+    function testMulWad(uint256 x, uint256 y) public {
+        if(y == 0 || x <= type(uint256).max / y) {
+            uint256 zSpec = (x * y) / WAD;
+            uint256 zImpl = Solady.mulWad(x, y);
+            assertEq(zImpl, zSpec);
+        } else {
+            vm.expectRevert();
+            Solady.mulWad(x, y);
+        }
+    }
+}
+```
+However, if we run `kontrol build && kontrol prove --test SoladyTest.testMulWad --use-booster`, it will report this test as failing.
+
+The inspection of the corresponding KCFG (`kontrol view-kcfg --test SoladyTest.testMulWad
+`) shows that the branching condition leading to the failing node corresponds to the `if`-statement of the `mulWad` function:
+```
+chop ( ( VV1_y_114b9705:Int *Int bool2Word ( ( maxUInt256 /Int VV1_y_114b9705:Int) <Int VV0_x_114b9705:Int ) ) ) ==Int 0
+```
+
+Considering that `chop(x)` corresponds to `x mod 2^256`, it can be simplified to the following expression, which is equivalent to `y == 0 || types(uint256).max / y >= x`:
+```
+(y * bool2Word((maxUInt256 / y) < x) mod 2^265 == 0
+```
+where `bool2Word` is a function taking a boolean variable and converting it into an EVM word (`true` to `1` and `false` to `0`).
+
+By inspecting the path conditions in the failing node, we'll identify the following (simplified) conditions:
+1. `y != 0`
+2. `x <= maxUInt256 / y`
+3. `y * bool2Word(maxUInt256 / y < x)) != 0`
+
+While it's clear that conditions 1 and 2 imply that condition 3 is `false`, there's a reasoning gas that doesn't allow Kontrol to conclude that this path is infeasible.
+
+To bridge this gap, let's add the following file with _lemmas_ that instruct `bool2Word` to simplify its boolean arguments:
+```
+requires "evm.md"
+requires "foundry.md"
+
+module DEMO-LEMMAS
+    imports BOOL
+    imports FOUNDRY
+    imports INFINITE-GAS
+    imports INT-SYMBOLIC
+
+    rule bool2Word ( X ) => 1 requires X         [simplification]
+    rule bool2Word ( X ) => 0 requires notBool X [simplification]
+
+endmodule
+```
+Now, add this lemmas to the project kompilation by running
+```
+kontrol build --rekompile --require ./lemmas.k --module-import SoladyTest:DEMO-LEMMAS
+```
+And re-run the proof which should now be passing:
+```
+kontrol prove --test SoladyTest.testMulWad --use-booster --reinit
+```
+
