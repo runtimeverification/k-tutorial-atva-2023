@@ -293,3 +293,139 @@ And re-run the proof which should now be passing:
 kontrol prove --test SoladyTest.testMulWad --use-booster --reinit
 ```
 
+### K5. Verifying `Loops` with Invariants
+
+Consider the following test with two functions:
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import "forge-std/Test.sol";
+
+contract LoopsTest is Test {
+    function sum_N(uint n) public returns (uint) {
+        vm.assume(n <= 51816696836262767);
+        
+        uint s = 0;
+        while (0 < n) {
+            s = s + n;
+            n = n - 1;
+        }
+        return s;
+    }
+
+    function test_sum_10() public returns (uint) {
+        return sum_N(10);
+    }
+}
+```
+
+The `sum_N` function computes sum of the first (arbitrary) `N` numbers. `test_sum_10` successfully computes this sum for `10` in less than a minute:
+```
+kontrol prove --test LoopsTest.test_sum_10 --use-booster
+```
+
+However, when run on `sum_N`, it would take much longer for Kontrol to explore `51816696836262767` iterations. One solution available in Kontrol is _bounded_ exploration. The bound for loop iterations can be provided as
+```
+kontrol prove --test LoopsTest.sum_N --bmc-depth 3 --use-booster
+```
+
+Alternatively, we can also supply a loop invariant as a rule (i.e., a lemma) similarly to how we did that in the previous exercise:
+```
+requires "../contracts.k"
+
+module SUM-TO-N-INVARIANT
+
+  imports LoopsTest-CONTRACT
+
+  rule N xorInt maxUInt256 => maxUInt256 -Int N 
+  requires #rangeUInt(256, N)
+  [simplification]
+
+  rule [foundry-sum-to-n-loop-invariant]:
+  <kevm>
+    <k>
+      ((JUMPI 1432 CONDITION) => JUMP 1432)
+      ~> #pc [ JUMPI ]
+      ~> #execute
+      ...
+    </k>
+    <mode>
+      NORMAL
+    </mode>
+    <schedule>
+      SHANGHAI
+    </schedule>
+    <ethereum>
+      <evm>
+        <callState>
+          <program>
+            PROGRAM
+          </program>
+          <jumpDests>
+            JUMPDESTS
+          </jumpDests>
+          <wordStack>
+              (S => (S +Int ((N *Int (N +Int 1)) /Int 2)))
+            : 0 
+            : (N => 0)
+            : 287 
+            : 2123244496
+            : .WordStack
+          </wordStack>
+          <pc>
+            1402
+          </pc>
+          ...
+        </callState>
+        ...
+      </evm>
+      ...
+    </ethereum>
+    ...
+  </kevm>
+
+  requires 0 <Int N
+   andBool #rangeUInt(256, S +Int ((N *Int (N +Int 1)) /Int 2))
+   andBool #rangeUInt(256, N)
+   andBool #rangeUInt(256, S)
+   andBool CONDITION ==K bool2Word ( N:Int ==Int 0 )
+   andBool PROGRAM ==K #binRuntime(S2KLoopsTest)
+   andBool JUMPDESTS ==K #computeValidJumpDests(#binRuntime(S2KLoopsTest))
+  [priority(40)]
+
+endmodule
+```
+The rule matches against the configuration corresponding to the node at the loop entrance and, instead of exploring the iterations one by one, instructs Kontrol to substitute the value of `S` at the top of the stack with `(S +Int ((N *Int (N +Int 1)) /Int 2))`, and `N` — with `0`.
+
+Re-kompile and re-run the proof for the loop invariant to be used:
+```
+kontrol build --rekompile --require ./invariant_lemmas.k --module-import LoopsTest:SUM-TO-N-INVARIANT
+kontrol prove --test LoopsTest.sum_N --use-booster
+```
+
+### K6. Verifying `mulWad`
+
+Make `test_wmul_increasing` proof pass by exploring the failing nodes and restricting the values of `a` and `b` or adding missing lemmas.
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import "forge-std/Test.sol";
+
+contract Examples is Test {
+    uint256 constant MAX_INT = (2 ** 256) - 1;
+    uint constant WAD = 10 ** 18;
+
+    function wmul(uint x, uint y) internal pure returns (uint z) {
+        z = (x * y) / WAD;
+    }
+
+    function test_wmul_increasing(uint a, uint b) public {
+        uint c = wmul(a, b);
+        // overflow check
+        assertTrue(a < c && b < c);
+    }
+}
+```
